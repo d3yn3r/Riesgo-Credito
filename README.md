@@ -190,6 +190,20 @@ IMAGEN 12: ROC Curve
 
 IMAGEN 13: PR Curve
 
+
+Teniendo el modelo ya entrenado, este nos devuelve valores binarios 0 para negar un credito y 1 para aprobarlo, luego procedemos a realizar un caso de prueba, para esto creamos un conjunto de datos y lo evaluamos con el modelo entrenado y obtuvimos los resultados esperados.
+
+![Caso de prueba](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/14.%20dataframe%20de%20prueba.png)
+IMAGEN 14: Caso de prueba
+
+![Aplicando caso de prueba](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/15%20prediccion%202.png)
+IMAGEN 15: Aplicando el modelo
+
+![Resultados de caso de prueba](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/16%20prediccion%203.png)
+IMAGEN 16: Resultado de predección
+
+
+
 <a name = referencias-bibliograficas> </a>
 ## Referencias Bibliográficas
 
