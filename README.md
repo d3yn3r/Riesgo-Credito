@@ -212,5 +212,5 @@ IMAGEN 16: Resultado de predección
 [[3] How to Develop a Credit Risk Model and Scorecard : notebook github](https://github.com/finlytics-hub/credit_risk_model/blob/master/Credit_Risk_Model_and_Credit_Scorecard.ipynb)<br>
 [[4] Intro to Credit Scorecard](https://towardsdatascience.com/intro-to-credit-scorecard-9afeaaa3725f)<br>
 [[5] A COMPLETE GUIDE TO CREDIT RISK MODELLING](https://www.listendata.com/2019/08/credit-risk-modelling.html)<br>
-[[1] Baesens, B., Roesch, D. y Scheule, H. (2016). Análisis de riesgo de crédito: Técnicas de medición, aplicaciones y ejemplos en SAS. John Wiley & Sons]()<br>
-[[2] Siddiqi, N. (2012). Scorecards de riesgo crediticio: desarrollo e implementación de puntajes crediticios inteligentes. John Wiley & Sons]()<br>
+[[6] Baesens, B., Roesch, D. y Scheule, H. (2016). Análisis de riesgo de crédito: Técnicas de medición, aplicaciones y ejemplos en SAS. John Wiley & Sons](https://github.com/d3yn3r/Riesgo-Credito)<br>
+[[7] Siddiqi, N. (2012). Scorecards de riesgo crediticio: desarrollo e implementación de puntajes crediticios inteligentes. John Wiley & Sons](https://github.com/d3yn3r/Riesgo-Credito)<br>
