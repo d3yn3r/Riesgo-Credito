@@ -12,7 +12,7 @@
     * [CHI-Cuadrado](#chi-cuadrado)
     * [F ANOVA](#f-anova)
 * [Matriz de correlación](#matriz-de-correlación)
-* [ONE-HOT-ENCONDING y actualización del conjunto de datos de prueba](#one-hot-enconding)
+* [ONE-HOT-ENCODING y actualización del conjunto de datos de prueba](#one-hot-encoding)
 * [WoE Binning e ingeniería de funciones](#woe-binning-e-ingeniería-de-funciones)
     * [WoE Binning](#woe-binning)
     * [Valor de la información-IV](#valor-de-la-información-iv)
@@ -123,9 +123,9 @@ Procedemos a realizar una matriz de correlacion entre las 20 variables principal
 ![Matriz de correlación](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/6.%20matriz%20de%20correlacion.png)
 IMAGEN 6: Matriz de correlación
 
-<a name = one-hot-enconding></a>
+<a name = one-hot-encoding></a>
 
-## One-Hot-Enconding y actualización del conjunto de datos de prueba 
+## One-Hot-Encoding y actualización del conjunto de datos de prueba 
 
 Con esta tecnica se crearan 4 variables nuevas categoricas y se aplicaran todas la tecnicas usadas en el conjunto de datos de entrenamiento al conjunto de datos de prueba.
 La creacion de las nuevas variables se hace con el fin de calcular los pesos de WoE y los valores de informacion IV de las categorias, primero se creara un conjunto de datos con las variables nuevas y posteriormente se unira a los conjuntos de datos de prueba y entrenamiento.
