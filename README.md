@@ -36,6 +36,7 @@ Los datos se encuentran en formato CSV y cuenta con aproximadamente 466.285 regi
 Inicialmente, empezamos eliminando las variables con una cantidad mayor al 80% de datos nulos, ya que estas no aportarían algo significativo al entrenamiento de nuestro modelo. Además, eliminamos las variables redundantes como id, member_id, title, etc. También eliminamos las variables prospectivas.
 
 ![Eliminación de variables nulas](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/1.%20eliminacion%20de%20nulos.png)
+
 IMAGEN 1: Eliminación de variables nulas
 
 ![Eliminación de variables redundantes](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/2%20.eliminacion%20de%20variables%20redundantes%20y%20prospectivas.png)
@@ -76,6 +77,7 @@ Estas variables fueron consideradas con un estado "Malo" o 1:
 Realizar la división de los datos antes de cualquier limpieza, nos permite evitar cualquier fuga de los datos tanto del conjunto de prueba como el de entrenamiento, y con esto tener una evaluación más precisa del modelo. Los datos fueron dividos en 80% para datos de entrenamiento y 20% para datos de prueba; Como nos indica Asad Mumtaz en su artículo [[2] How to Develop a Credit Risk Model and Scorecard](https://towardsdatascience.com/how-to-develop-a-credit-risk-model-and-scorecard-91335fc01f03) se realizaran pruebas de plegado k estratificadas repetidas en la prueba de entrenamiento para evaluar preliminarmente nuestro modelo, mientras que el conjunto de prueba permanecerá intacto hasta la evaluación final del modelo. 
 
 ![Tendencia de la variable objetivo](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/3.%20tendencia%20de%20las%20variables.png)
+
 IMAGEN 3: Tendencia de la variable objetivo
 
 Como podemos evidenciar en la variable objetivo, los datos tienden a estar fuertemente sesgados a buenos prestamos, por lo tanto, además de un muestreo aleatorio, se estratificara la división de los datos de prueba y entrenamiento con el fin de encontrar una misma distribución entre los datos, para esto se utilizó el parámetro train_test_split de la función .stratify.
@@ -139,6 +141,7 @@ IMAGEN 8: Formula de calculo de IV
 Según Siddiqi², por convención, los valores de IV en la calificación crediticia se interpretan de la siguiente manera:
 
 ![tabla iv](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/9.%20iv%20tabla.jpeg)
+
 IMAGEN 9: Tabla de valores para IV
 
 Realizando los calculos de WoE binning y IV, utilizaremos 3 funciones:
@@ -151,17 +154,41 @@ luego de realizar los calculos procedemos a visualizar los resultados obtenidos.
 ![resultados woe y iv](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/10.%20woe%20y%20iv%20resultados.png)
 IMAGEN 10: resultados woe y iv
 
+
 ![grafico woe x grado](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/11.%20grafica%20woe%20x%20grado.png)
 IMAGEN 11: grafico WoE por Grado
 
 Podemos ver en el gráfico anterior que hay un aumento continuo en WoE en los diferentes grados. Por lo tanto, no necesitamos combinar ninguna característica y deberíamos dejar estos 7 grados como están.
 
-Luego de visualizar los resultados de WoE y IV, procedemos a realizar la selección de las variables que se dejaran y las que se eliminaran segun el resultado de IV.
+Luego de visualizar los resultados de WoE y IV, procedemos a realizar la selección de las variables que se dejaran y las que se eliminaran segun el resultado de IV, posteriormente las caracteristicas pre-seleccionadas seran tratadas de la siguiente manera.
+
+* No se combinaran o crearan categorias dado el WoE discreto y monotono y la ausencia de valores faltantes: grade, verification_status,term.
+* Combine contenedores WoE con observaciones muy bajas con el contenedor vecino: home_ownership, purpose.
+* Combine contenedores de WoE con valores de WoE similares, posiblemente con una categoría faltante separada: int_rate, annual_inc, dti, inq_last_6mths, revol_util, out_prncp, total_pymnt, total_rec_int, total_rev_hi_lim, mths_since_earliest_cr_line, mths_since_issue_d,mths_since_last_credit_pull_d.
+* Ignorar características con un valor IV bajo o muy alto: emp_length, total_acc, last_pymnt_amnt, tot_cur_bal,mths_since_last_pymnt_d_factor.
+
+Para ciertas caracteristicas de variables numericas con valores atipicos, se calculara y trazara WoE, seran excluidos y luego asignados a una categoría separada propia.
+
+luego de explorar las funciones e identificar las categorías que se crearán, definiremos una clase de 'transformador' personalizado utilizando las clases de la libreria sci-kit learn's, "BaseEstimatory" y "TransformerMixin".
+
+## Entrenamiento del modelo
+
+Para el entrenamiento de nuestro modelo ajustaremos un modelo de regresión logística en nuestro conjunto de entrenamiento y lo evaluaremos usando "RepeatedStratifiedKFold", para esto se ha definido que el parametro "class_weight" de la "LogisticRegressionclase" sea "balanced". Esto obligará al modelo de regresión logística a aprender los coeficientes del modelo mediante el aprendizaje sensible a los costos, es decir, penalizar los falsos negativos más que los falsos positivos durante el entrenamiento del modelo. El aprendizaje sensible a los costos es útil para conjuntos de datos desequilibrados, que suele ser el caso en la calificación crediticia.
+
+Nuestra métrica de evaluación será el área bajo la curva, característica operativa del receptor (AUROC), una métrica ampliamente utilizada y aceptada para la calificación crediticia. RepeatedStratifiedKFold dividirá los datos mientras conserva el desequilibrio de clase y realizará la validación k-fold varias veces.
+
+Después de realizar la validación de k-pliegues en nuestro conjunto de entrenamiento y estar satisfechos con AUROC, ajustaremos la canalización en todo el conjunto de entrenamiento y crearemos una tabla de resumen con los nombres de las funciones y los coeficientes devueltos por el modelo.
+
+Nuestro AUROC en el conjunto de pruebas sale a 0.866 con un Gini de 0.732, ambos considerados como puntajes de evaluación bastante aceptables.
+
+![ROC curve](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/12.%20roc%20curve.png)
+
+IMAGEN 12: ROC Curve
 
 
+![PR Curve](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/13%20pr%20curve.png)
 
-
-
+IMAGEN 13: PR Curve
 
 <a name = referencias-bibliograficas> </a>
 ## Referencias Bibliográficas
