@@ -283,7 +283,7 @@ Dado que, en el análisis de riesgos, el conocimiento del dominio es más import
 
 ## Repositorio de la APP
 
-[Link del repositorio de la APP](https://ancgarciamo-score-loan-tae2-ue8alp.streamlitapp.com/)
+[Link del repositorio de la APP](https://github.com/ancgarciamo/Score_Loan)
 
 
 <a name = referencias-bibliograficas> </a>
