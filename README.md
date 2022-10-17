@@ -18,6 +18,7 @@
     * [Valor de la información-IV](#valor-de-la-información-iv)
 * [Entrenamiento del modelo](#entrenamiento-del-modelo)
 * [Desarrollo del ScoreCard](#desarrollo-del-scorecard)
+    *[Establecimiento de límites de aprobación de préstamos](#limites-prestamos)
 * [Aplicación](#aplicacion)
 * [Video promocional](#video-promocional)
 * [Conclusión](#conclusion)
@@ -27,6 +28,7 @@
 
 ## Introducción
 
+En el siguiente reporte técnico, explicaremos la forma en que realizamos un modelo de riesgo crediticio para la predicción de incumplimiento y así otorgar o no, créditos financieros, y con la ayuda de este logramos el desarrollo de un ScoreCard con el fin de dar una puntuación de los interesados según las características personales y financieras, además realizamos el desarrollo de una aplicación web en el cual el usuario interesado puede ingresar e ingresar sus datos y finalmente obtener su ScoreCard y como se representa respecto al promedio de los solicitantes, todo esto fue realizado en el lenguaje de programación python.
 
 
 <a name = dataset></a>
@@ -105,6 +107,7 @@ Utilizaremos las siguientes tecnicas con el fin de hayas las caracteristicas mas
 Al aplicar esta tecnica,podemos ver en la siguiente imagen los resultados, y escogeremos las cuatro caracteristicas principales.
 
 ![CHI-Cuadrado](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/4.%20chi%20cuadrado.png)
+
 IMAGEN 4: CHI-Cuadrado
 
 <a name = f-anova></a>
@@ -113,6 +116,7 @@ IMAGEN 4: CHI-Cuadrado
 Al aplicar esta tecnic, podemos ver en los resultados que muestra una amplia gama de valores para 32 funciones, con valores desde 23.513 hasta 0.39, pero inicialmente escogeremos las 20 caracteristicas principales.
 
 ![F ANOVA](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/5.%20f%20anova.png)
+
 IMAGEN 5: F ANOVA
 
 <a name = matriz-de-correlación></a>
@@ -122,6 +126,7 @@ IMAGEN 5: F ANOVA
 Procedemos a realizar una matriz de correlacion entre las 20 variables principales, y en esta encontramos que las variables out_prncp_inv y total_pymnt_inv tienen una alta correlacion, por lo tanto las eliminaremos del conjunto de datos.
 
 ![Matriz de correlación](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/6.%20matriz%20de%20correlacion.png)
+
 IMAGEN 6: Matriz de correlación
 
 <a name = one-hot-encoding></a>
@@ -144,6 +149,7 @@ WoE Binning es una de las tecnicas usadas para la seleccion de caracteristicas e
 La fórmula para calcular WoE es la siguiente:
 
 ![formula de WoE](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/7.%20woe.png)
+
 IMAGEN 7: Formula de calculo de WoE
 
 <a name = valor-de-la-informacion-iv></a>
@@ -154,6 +160,7 @@ IV nos ayuda a clasificar las funciones en funcion de su importancia relativa pe
 IV se calcula de la siguiente manera:
 
 ![formula iv](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/8.%20iv%201.png)
+
 IMAGEN 8: Formula de calculo de IV
 
 Según Siddiqi², por convención, los valores de IV en la calificación crediticia se interpretan de la siguiente manera:
@@ -170,10 +177,12 @@ Realizando los calculos de WoE binning y IV, utilizaremos 3 funciones:
 luego de realizar los calculos procedemos a visualizar los resultados obtenidos.
 
 ![resultados woe y iv](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/10.%20woe%20y%20iv%20resultados.png)
+
 IMAGEN 10: resultados woe y iv
 
 
 ![grafico woe x grado](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/11.%20grafica%20woe%20x%20grado.png)
+
 IMAGEN 11: grafico WoE por Grado
 
 Podemos ver en el gráfico anterior que hay un aumento continuo en WoE en los diferentes grados. Por lo tanto, no necesitamos combinar ninguna característica y deberíamos dejar estos 7 grados como están.
@@ -214,53 +223,67 @@ IMAGEN 13: PR Curve
 Teniendo el modelo ya entrenado, este nos devuelve valores binarios 0 para negar un credito y 1 para aprobarlo, luego procedemos a realizar un caso de prueba, para esto creamos un conjunto de datos y lo evaluamos con el modelo entrenado y obtuvimos los resultados esperados.
 
 ![Caso de prueba](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/14.%20dataframe%20de%20prueba.png)
+
 IMAGEN 14: Caso de prueba
 
 ![Aplicando caso de prueba](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/15%20prediccion%202.png)
+
 IMAGEN 15: Aplicando el modelo
 
 ![Resultados de caso de prueba](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/16%20prediccion%203.png)
+
 IMAGEN 16: Resultado de predección
 
 <a name = desarrollo-del-scorecard></a>
 
 ## Desarrollo del ScoreCard
 
-Ahora crearemos una tarjeta de puntuacion (ScoreCard) con el fin de desarrollar una aplicación en la que cualquier persona interesada, pueda calcular su puntaje crediticio dada cierta informacion sobre el y su historial crediticio.
+Ahora crearemos una tarjeta de puntuación (ScoreCard) con el fin de desarrollar una aplicación en la que cualquier persona interesada, pueda calcular su puntaje crediticio dada cierta información sobre el y su historial crediticio.
 determinamos los puntajes mínimos y máximos que debe arrojar nuestro scorecard. Como punto de partida, utilizaremos el mismo rango de puntuaciones que utiliza FICO: de 300 a 850. y luego de esto procedemos a calcular el scorecard
 
 ![ScoreCard table](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/17%20scorecard%20calculo%20y%20preliminar.png)
 
 IMAGEN 17: ScoreCard para 1 caso de prueba
 
-Luego, procedemos a realizar los calcaulos de ScoreCard para el caso de prueba que usamos anteriormente [Caso de prueba](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/14.%20dataframe%20de%20prueba.png), esto con el fin de saber si para un caso espefico los resultados son los esperados. Posteriormente tambien realizamos los calculo para el conjunto de datos de prueba.
+Luego, procedemos a realizar los cálculos de ScoreCard para el caso de prueba que usamos anteriormente [Caso de prueba](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/14.%20dataframe%20de%20prueba.png), esto con el fin de saber si para un caso especifico los resultados son los esperados. Posteriormente también realizamos los calculo para el conjunto de datos de prueba.
 
 ![ScoreCard table DataFrame-Test](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/18%20scorecard%20para%20caso%20de%20prueba.png)
 
 IMAGEN 18: ScoreCard para DataFrame Test
 
+<a name = limites-prestamos></a>
+
 ### Establecimiento de límites de aprobación de préstamos
 
-En este proceso se establecen limites para a aprobacion o desaprobacion de los prestamos, esto con el fin determinar a quien se le aprueba o rechaza, para encontrar este límite, debemos volver a los umbrales de probabilidad de la curva ROC. La curva ROC traza el FPR y el TPR para todos los umbrales de probabilidad entre 0 y 1. Dado que nuestro objetivo es minimizar el FPR y maximizar el TPR, lo que buscamos es el umbral de probabilidad de la esquina superior izquierda de la curva. Este umbral ideal se calcula utilizando la estadística J de Youden, que es una diferencia simple entre TPR y FPR.
+En este proceso se establecen límites para a aprobación o desaprobación de los préstamos, esto con el fin determinar a quien se le aprueba o rechaza, para encontrar este límite, debemos volver a los umbrales de probabilidad de la curva ROC. La curva ROC traza el FPR y el TPR para todos los umbrales de probabilidad entre 0 y 1. Dado que nuestro objetivo es minimizar el FPR y maximizar el TPR, lo que buscamos es el umbral de probabilidad de la esquina superior izquierda de la curva. Este umbral ideal se calcula utilizando la estadística J de Youden, que es una diferencia simple entre TPR y FPR.
 
-Aplicando la estadistica J de Youden obtuvimos un umbral de 0.186574, este umbral ideal parece contradictorio en comparación con el umbral de probabilidad de incumplimiento de 0,5. Pero dado que usamos el parámetro class_weight al ajustar nuestro modelo de regresión logística lo cual nos ayudo a calcular mejor el umbral.
+Aplicando la estadística J de Youden obtuvimos un umbral de 0.186574, este umbral ideal parece contradictorio en comparación con el umbral de probabilidad de incumplimiento de 0,5. Pero dado que usamos el parámetro class_weight al ajustar nuestro modelo de regresión logística lo cual nos ayudo a calcular mejor el umbral.
 
 
 <a name = aplicacion ></a>
 
 ## Aplicación
 
-[Pagina web de la aplicación]()
+[Pagina web de la aplicación](https://ancgarciamo-score-loan-tae2-ue8alp.streamlitapp.com/)
 
 <a name = video-promocional></a>
 
 ## Video promocional
 
-[URL del video promocional]()
+[Link del video promocional]()
 
 <a name = conclusion></a>
 
 ## Conclusión
+
+Dado que, en el análisis de riesgos, el conocimiento del dominio es más importante que el conocimiento técnico o estadístico, podemos concluir que pudimos obtener un modelo de riesgo crediticio bastante aceptable, el cual puede ser utilizado por cualquier usuario que desee conocer si según sus características se le puede otorgar un crédito financiero.
+
+
+<a name = repositorio-app></a>
+
+## Repositorio de la APP
+
+[Link del repositorio de la APP](https://ancgarciamo-score-loan-tae2-ue8alp.streamlitapp.com/)
 
 
 <a name = referencias-bibliograficas> </a>
