@@ -297,3 +297,5 @@ Dado que, en el análisis de riesgos, el conocimiento del dominio es más import
 [[5] A COMPLETE GUIDE TO CREDIT RISK MODELLING](https://www.listendata.com/2019/08/credit-risk-modelling.html)<br>
 [[6] Baesens, B., Roesch, D. y Scheule, H. (2016). Análisis de riesgo de crédito: Técnicas de medición, aplicaciones y ejemplos en SAS. John Wiley & Sons](https://github.com/d3yn3r/Riesgo-Credito)<br>
 [[7] Siddiqi, N. (2012). Scorecards de riesgo crediticio: desarrollo e implementación de puntajes crediticios inteligentes. John Wiley & Sons](https://github.com/d3yn3r/Riesgo-Credito)<br>
+[[8] Streamlit](https://streamlit.io/)<br>
+[[9] Stackoverflow](https://stackoverflow.com/)
