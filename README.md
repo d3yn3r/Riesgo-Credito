@@ -30,12 +30,17 @@ Los datos se encuentran en formato CSV y cuenta con aproximadamente 466.285 regi
 
 ## Pre-Procesamiento de datos
 
+<a name = variables-redundantes-y-nulas></a>
+
 ### Variables redundantes y nulas
 Inicialmente, empezamos eliminando las variables con una cantidad mayor al 80% de datos nulos, ya que estas no aportarían algo significativo al entrenamiento de nuestro modelo. Además, eliminamos las variables redundantes como id, member_id, title, etc. También eliminamos las variables prospectivas.
 
 ![Eliminación de variables nulas](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/1.%20eliminacion%20de%20nulos.png)
+IMAGEN 1: Eliminación de variables nulas
 
 ![Eliminación de variables redundantes](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/2%20.eliminacion%20de%20variables%20redundantes%20y%20prospectivas.png)
+
+IMAGEN 2: Eliminación de variables redundantes
 
 Posteriormente, identificamos cual es nuestra variable objetivo, en nuestro caso es "loan_status" esta es una variable categórica y nos indica el estado del crédito, en ella se encuentran los siguientes estados:
 
@@ -64,18 +69,47 @@ Estas variables fueron consideradas con un estado "Malo" o 1:
 * Late (31-120 days)
 * Does not meet the credit policy. Status:Charged Off
 
+<a name = división-de-los-datos></a>
 
 ### División de los datos
 
 Realizar la división de los datos antes de cualquier limpieza, nos permite evitar cualquier fuga de los datos tanto del conjunto de prueba como el de entrenamiento, y con esto tener una evaluación más precisa del modelo. Los datos fueron dividos en 80% para datos de entrenamiento y 20% para datos de prueba; Como nos indica Asad Mumtaz en su artículo [[2] How to Develop a Credit Risk Model and Scorecard](https://towardsdatascience.com/how-to-develop-a-credit-risk-model-and-scorecard-91335fc01f03) se realizaran pruebas de plegado k estratificadas repetidas en la prueba de entrenamiento para evaluar preliminarmente nuestro modelo, mientras que el conjunto de prueba permanecerá intacto hasta la evaluación final del modelo. 
 
 ![Tendencia de la variable objetivo](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/3.%20tendencia%20de%20las%20variables.png)
+IMAGEN 3: Tendencia de la variable objetivo
 
 Como podemos evidenciar en la variable objetivo, los datos tienden a estar fuertemente sesgados a buenos prestamos, por lo tanto, además de un muestreo aleatorio, se estratificara la división de los datos de prueba y entrenamiento con el fin de encontrar una misma distribución entre los datos, para esto se utilizó el parámetro train_test_split de la función .stratify.
 
 Adicional a esto, a las columnas con datos de fechas, se le realizo una conversión a numéricas.
 
+<a name = Selección-de-las-caracteristicas>
+
 ## Selección de las características
+
+Utilizaremos las siguientes tecnicas con el fin de hayas las caracteristicas mas adecuadas para nuestro proyecto. primero usaremos la tecnica de CHI-cuadrado para las caracteristicas categoricas y F ANOVA para las caracteristicas numericas
+
+### CHI-cuadrado
+Al aplicar esta tecnica,podemos ver en la siguiente imagen los resultados, y escogeremos las cuatro caracteristicas principales.
+
+![CHI-Cuadrado](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/4.%20chi%20cuadrado.png)
+IMAGEN 4: CHI-Cuadrado
+
+### F ANOVA
+Al aplicar esta tecnic, podemos ver en los resultados que muestra una amplia gama de valores para 32 funciones, con valores desde 23.513 hasta 0.39, pero inicialmente escogeremos las 20 caracteristicas principales.
+
+![F ANOVA](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/5.%20f%20anova.png)
+IMAGEN 5: F ANOVA
+
+<a name = matriz-de-correlacion></a>
+
+## Matriz de correlación
+
+Procedemos a realizar una matriz de correlacion entre las 20 variables principales, y en esta encontramos que las variables out_prncp_inv y total_pymnt_inv tienen una alta correlacion, por lo tanto las eliminaremos del conjunto de datos.
+
+![Matriz de correlación](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/6.%20matriz%20de%20correlacion.png)
+IMAGEN 6: Matriz de correlación
+
+
 
 
 <a name = referencias-bibliograficas> </a>
