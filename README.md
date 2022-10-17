@@ -17,6 +17,7 @@
     * [WoE Binning](#woe-binning)
     * [Valor de la información-IV](#valor-de-la-información-iv)
 * [Entrenamiento del modelo](#entrenamiento-del-modelo)
+* [Desarrollo del ScoreCard](#desarrollo-del-scorecard)
 * [Aplicación](#aplicacion)
 * [Video promocional](#video-promocional)
 * [Conclusión](#conclusion)
@@ -221,6 +222,9 @@ IMAGEN 15: Aplicando el modelo
 ![Resultados de caso de prueba](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/16%20prediccion%203.png)
 IMAGEN 16: Resultado de predección
 
+<a name = desarrollo-del-scorecard></a>
+
+## Desarrollo del ScoreCard
 
 <a name = aplicacion ></a>
 
