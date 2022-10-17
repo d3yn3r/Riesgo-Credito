@@ -9,6 +9,14 @@
     * [Variables redundantes y nulas](#variables-redundandes-y-nulas)
     * [División de los datos](#división-de-los-datos)
 * [Selección de las características](#seleccion-de-las-caracteristicas)
+    * [CHI-Cuadrado](#chi-cuadrado)
+    * [F ANOVA](#f-anova)
+* [Matriz de correlación](#matriz-de-correlación)
+* [ONE-HOT-ENCONDING y actualización del conjunto de datos de prueba](#one-hot-enconding)
+* [WoE Binning e ingeniería de funciones](#woe-binning-e-ingeniería-de-funciones)
+    * [WoE Binning](#woe-binning)
+    * [Valor de la información-IV](#valor-de-la-información-iv)
+* [Entrenamiento del modelo](#entrenamiento-del-modelo)
 * [Aplicación](#aplicacion)
 * [Video promocional](#video-promocional)
 * [Conclusión](#conclusion)
@@ -90,11 +98,15 @@ Adicional a esto, a las columnas con datos de fechas, se le realizo una conversi
 
 Utilizaremos las siguientes tecnicas con el fin de hayas las caracteristicas mas adecuadas para nuestro proyecto. primero usaremos la tecnica de CHI-cuadrado para las caracteristicas categoricas y F ANOVA para las caracteristicas numericas
 
+<a name = chi-cuadrado></a>
+
 ### CHI-cuadrado
 Al aplicar esta tecnica,podemos ver en la siguiente imagen los resultados, y escogeremos las cuatro caracteristicas principales.
 
 ![CHI-Cuadrado](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/4.%20chi%20cuadrado.png)
 IMAGEN 4: CHI-Cuadrado
+
+<a name = f-anova></a>
 
 ### F ANOVA
 Al aplicar esta tecnic, podemos ver en los resultados que muestra una amplia gama de valores para 32 funciones, con valores desde 23.513 hasta 0.39, pero inicialmente escogeremos las 20 caracteristicas principales.
@@ -102,7 +114,7 @@ Al aplicar esta tecnic, podemos ver en los resultados que muestra una amplia gam
 ![F ANOVA](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/5.%20f%20anova.png)
 IMAGEN 5: F ANOVA
 
-<a name = matriz-de-correlacion></a>
+<a name = matriz-de-correlación></a>
 
 ## Matriz de correlación
 
@@ -118,9 +130,12 @@ IMAGEN 6: Matriz de correlación
 Con esta tecnica se crearan 4 variables nuevas categoricas y se aplicaran todas la tecnicas usadas en el conjunto de datos de entrenamiento al conjunto de datos de prueba.
 La creacion de las nuevas variables se hace con el fin de calcular los pesos de WoE y los valores de informacion IV de las categorias, primero se creara un conjunto de datos con las variables nuevas y posteriormente se unira a los conjuntos de datos de prueba y entrenamiento.
 
+<a name = woe-binning-e-ingeniería-de-funciones></a>
 
 ## WoE Binning e ingeniería de funciones
 La creacion de las nuevas variables es uno de los pasos mas criticos en el desarrollo del modelo, esta se hara de forma manual con el fin de tener un mayor control sobre el proceso de creacion del modelo.
+
+<a name = woe-binning></a>
 
 ### WoE Binning
 WoE Binning es una de las tecnicas usadas para la seleccion de caracteristicas en modelos de riesgo crediticio; WoE es una medida predictiva de una variable independiente en relacion con la variable objetivo y mide el grado en que una caracteristica especifica puede difrerenciarse en la variable objetivo, Un WoE positivo significa que la proporción de buenos clientes es mayor que la de malos clientes y viceversa para un valor de WoE negativo.
@@ -129,6 +144,8 @@ La fórmula para calcular WoE es la siguiente:
 
 ![formula de WoE](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/7.%20woe.png)
 IMAGEN 7: Formula de calculo de WoE
+
+<a name = valor-de-la-informacion-iv></a>
 
 ### Valor de la información-IV
 IV nos ayuda a clasificar las funciones en funcion de su importancia relativa pero esta IV solo es útil como técnica de selección e importancia de características cuando se utiliza un modelo de regresión logística binaria.
@@ -171,6 +188,8 @@ Para ciertas caracteristicas de variables numericas con valores atipicos, se cal
 
 luego de explorar las funciones e identificar las categorías que se crearán, definiremos una clase de 'transformador' personalizado utilizando las clases de la libreria sci-kit learn's, "BaseEstimatory" y "TransformerMixin".
 
+<a name = entrenamiento-del-modelo></a>
+
 ## Entrenamiento del modelo
 
 Para el entrenamiento de nuestro modelo ajustaremos un modelo de regresión logística en nuestro conjunto de entrenamiento y lo evaluaremos usando "RepeatedStratifiedKFold", para esto se ha definido que el parametro "class_weight" de la "LogisticRegressionclase" sea "balanced". Esto obligará al modelo de regresión logística a aprender los coeficientes del modelo mediante el aprendizaje sensible a los costos, es decir, penalizar los falsos negativos más que los falsos positivos durante el entrenamiento del modelo. El aprendizaje sensible a los costos es útil para conjuntos de datos desequilibrados, que suele ser el caso en la calificación crediticia.
@@ -203,8 +222,25 @@ IMAGEN 15: Aplicando el modelo
 IMAGEN 16: Resultado de predección
 
 
+<a name = aplicacion ></a>
+
+## Aplicación
+
+[Pagina web de la aplicación]()
+
+<a name = video-promocional></a>
+
+## Video promocional
+
+[URL del video promocional]()
+
+<a name = conclusion></a>
+
+## Conclusión
+
 
 <a name = referencias-bibliograficas> </a>
+
 ## Referencias Bibliográficas
 
 [[1] How to Quantify Risk and Creditworthiness](https://medium.com/swlh/how-to-quantify-risk-and-creditworthiness-c76725bc2380)<br>
