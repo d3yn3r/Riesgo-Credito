@@ -109,14 +109,67 @@ Procedemos a realizar una matriz de correlacion entre las 20 variables principal
 ![Matriz de correlación](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/6.%20matriz%20de%20correlacion.png)
 IMAGEN 6: Matriz de correlación
 
+<a name = one-hot-enconding></a>
+
+## One-Hot-Enconding y actualización del conjunto de datos de prueba 
+
+Con esta tecnica se crearan 4 variables nuevas categoricas y se aplicaran todas la tecnicas usadas en el conjunto de datos de entrenamiento al conjunto de datos de prueba.
+La creacion de las nuevas variables se hace con el fin de calcular los pesos de WoE y los valores de informacion IV de las categorias, primero se creara un conjunto de datos con las variables nuevas y posteriormente se unira a los conjuntos de datos de prueba y entrenamiento.
+
+
+## WoE Binning e ingeniería de funciones
+La creacion de las nuevas variables es uno de los pasos mas criticos en el desarrollo del modelo, esta se hara de forma manual con el fin de tener un mayor control sobre el proceso de creacion del modelo.
+
+### WoE Binning
+WoE Binning es una de las tecnicas usadas para la seleccion de caracteristicas en modelos de riesgo crediticio; WoE es una medida predictiva de una variable independiente en relacion con la variable objetivo y mide el grado en que una caracteristica especifica puede difrerenciarse en la variable objetivo, Un WoE positivo significa que la proporción de buenos clientes es mayor que la de malos clientes y viceversa para un valor de WoE negativo.
+
+La fórmula para calcular WoE es la siguiente:
+
+![formula de WoE](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/7.%20woe.png)
+IMAGEN 7: Formula de calculo de WoE
+
+### Valor de la información-IV
+IV nos ayuda a clasificar las funciones en funcion de su importancia relativa pero esta IV solo es útil como técnica de selección e importancia de características cuando se utiliza un modelo de regresión logística binaria.
+
+IV se calcula de la siguiente manera:
+
+![formula iv](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/8.%20iv%201.png)
+IMAGEN 8: Formula de calculo de IV
+
+Según Siddiqi², por convención, los valores de IV en la calificación crediticia se interpretan de la siguiente manera:
+
+![tabla iv](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/9.%20iv%20tabla.jpeg)
+IMAGEN 9: Tabla de valores para IV
+
+Realizando los calculos de WoE binning y IV, utilizaremos 3 funciones:
+* calcular y mostrar valores WoE e IV para variables categóricas
+* calcular y mostrar valores WoE e IV para variables numéricas
+* trazar los valores de WoE contra los contenedores para ayudarnos a visualizar WoE y combinar contenedores de WoE similares
+
+luego de realizar los calculos procedemos a visualizar los resultados obtenidos.
+
+![resultados woe y iv](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/10.%20woe%20y%20iv%20resultados.png)
+IMAGEN 10: resultados woe y iv
+
+![grafico woe x grado](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/11.%20grafica%20woe%20x%20grado.png)
+IMAGEN 11: grafico WoE por Grado
+
+Podemos ver en el gráfico anterior que hay un aumento continuo en WoE en los diferentes grados. Por lo tanto, no necesitamos combinar ninguna característica y deberíamos dejar estos 7 grados como están.
+
+Luego de visualizar los resultados de WoE y IV, procedemos a realizar la selección de las variables que se dejaran y las que se eliminaran segun el resultado de IV.
+
+
+
 
 
 
 <a name = referencias-bibliograficas> </a>
 ## Referencias Bibliográficas
 
-[[1] How to Quantify Risk and Creditworthiness](https://medium.com/swlh/how-to-quantify-risk-and-creditworthiness-c76725bc2380)
-[[2] How to Develop a Credit Risk Model and Scorecard](https://towardsdatascience.com/how-to-develop-a-credit-risk-model-and-scorecard-91335fc01f03)
-[[3] How to Develop a Credit Risk Model and Scorecard : notebook github](https://github.com/finlytics-hub/credit_risk_model/blob/master/Credit_Risk_Model_and_Credit_Scorecard.ipynb)
-[[4] Intro to Credit Scorecard](https://towardsdatascience.com/intro-to-credit-scorecard-9afeaaa3725f)
-[[5] A COMPLETE GUIDE TO CREDIT RISK MODELLING](https://www.listendata.com/2019/08/credit-risk-modelling.html)
+[[1] How to Quantify Risk and Creditworthiness](https://medium.com/swlh/how-to-quantify-risk-and-creditworthiness-c76725bc2380)<br>
+[[2] How to Develop a Credit Risk Model and Scorecard](https://towardsdatascience.com/how-to-develop-a-credit-risk-model-and-scorecard-91335fc01f03)<br>
+[[3] How to Develop a Credit Risk Model and Scorecard : notebook github](https://github.com/finlytics-hub/credit_risk_model/blob/master/Credit_Risk_Model_and_Credit_Scorecard.ipynb)<br>
+[[4] Intro to Credit Scorecard](https://towardsdatascience.com/intro-to-credit-scorecard-9afeaaa3725f)<br>
+[[5] A COMPLETE GUIDE TO CREDIT RISK MODELLING](https://www.listendata.com/2019/08/credit-risk-modelling.html)<br>
+[[1] Baesens, B., Roesch, D. y Scheule, H. (2016). Análisis de riesgo de crédito: Técnicas de medición, aplicaciones y ejemplos en SAS. John Wiley & Sons]()<br>
+[[2] Siddiqi, N. (2012). Scorecards de riesgo crediticio: desarrollo e implementación de puntajes crediticios inteligentes. John Wiley & Sons]()<br>
