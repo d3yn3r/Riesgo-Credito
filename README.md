@@ -226,6 +226,26 @@ IMAGEN 16: Resultado de predección
 
 ## Desarrollo del ScoreCard
 
+Ahora crearemos una tarjeta de puntuacion (ScoreCard) con el fin de desarrollar una aplicación en la que cualquier persona interesada, pueda calcular su puntaje crediticio dada cierta informacion sobre el y su historial crediticio.
+determinamos los puntajes mínimos y máximos que debe arrojar nuestro scorecard. Como punto de partida, utilizaremos el mismo rango de puntuaciones que utiliza FICO: de 300 a 850. y luego de esto procedemos a calcular el scorecard
+
+![ScoreCard table](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/17%20scorecard%20calculo%20y%20preliminar.png)
+
+IMAGEN 17: ScoreCard para 1 caso de prueba
+
+Luego, procedemos a realizar los calcaulos de ScoreCard para el caso de prueba que usamos anteriormente [Caso de prueba](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/14.%20dataframe%20de%20prueba.png), esto con el fin de saber si para un caso espefico los resultados son los esperados. Posteriormente tambien realizamos los calculo para el conjunto de datos de prueba.
+
+![ScoreCard table DataFrame-Test](https://github.com/d3yn3r/Riesgo-Credito/blob/main/imagenes/18%20scorecard%20para%20caso%20de%20prueba.png)
+
+IMAGEN 18: ScoreCard para DataFrame Test
+
+### Establecimiento de límites de aprobación de préstamos
+
+En este proceso se establecen limites para a aprobacion o desaprobacion de los prestamos, esto con el fin determinar a quien se le aprueba o rechaza, para encontrar este límite, debemos volver a los umbrales de probabilidad de la curva ROC. La curva ROC traza el FPR y el TPR para todos los umbrales de probabilidad entre 0 y 1. Dado que nuestro objetivo es minimizar el FPR y maximizar el TPR, lo que buscamos es el umbral de probabilidad de la esquina superior izquierda de la curva. Este umbral ideal se calcula utilizando la estadística J de Youden, que es una diferencia simple entre TPR y FPR.
+
+Aplicando la estadistica J de Youden obtuvimos un umbral de 0.186574, este umbral ideal parece contradictorio en comparación con el umbral de probabilidad de incumplimiento de 0,5. Pero dado que usamos el parámetro class_weight al ajustar nuestro modelo de regresión logística lo cual nos ayudo a calcular mejor el umbral.
+
+
 <a name = aplicacion ></a>
 
 ## Aplicación
