@@ -38,7 +38,7 @@ Los datos se encuentran en formato CSV y cuenta con aproximadamente 466.285 regi
 
 ## Pre-Procesamiento de datos
 
-<a name = variables-redundantes-y-nulas></a>
+<a name = variables-redundandes-y-nulas></a>
 
 ### Variables redundantes y nulas
 Inicialmente, empezamos eliminando las variables con una cantidad mayor al 80% de datos nulos, ya que estas no aportarían algo significativo al entrenamiento de nuestro modelo. Además, eliminamos las variables redundantes como id, member_id, title, etc. También eliminamos las variables prospectivas.
@@ -92,7 +92,7 @@ Como podemos evidenciar en la variable objetivo, los datos tienden a estar fuert
 
 Adicional a esto, a las columnas con datos de fechas, se le realizo una conversión a numéricas.
 
-<a name = Selección-de-las-caracteristicas>
+<a name = seleccion-de-las-caracteristicas></a>
 
 ## Selección de las características
 
