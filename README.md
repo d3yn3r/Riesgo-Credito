@@ -1,4 +1,4 @@
-# Análisis de riesgo crediticio
+# Análisis de riesgo crediticio y Cálculo de ScoreCard
 #### Andrés Camilo García Moreno - Ingeniería de sistemas e informatica 
 #### Deyner Elías López Pineda - Ingeniería de sistemas e informatica 
 
@@ -270,7 +270,7 @@ Aplicando la estadística J de Youden obtuvimos un umbral de 0.186574, este umbr
 
 ## Video promocional
 
-[Link del video promocional]()
+[Link del video promocional](https://youtu.be/yl0MlsJzp1E)
 
 <a name = conclusion></a>
 
